@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Penarikan extends Model
 {
     use HasFactory;
-    protected $table = 'Penarikan';
+    protected $table = 'penarikan';
     protected $fillable = [
         'rekening_id',
         'total_harga',

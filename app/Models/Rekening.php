@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Rekening extends Model
 {
     use HasFactory;
-    protected $table = 'Rekening';
+    protected $table = 'rekening';
     protected $fillable = [
         'user_id',
         'nomor_rekening',
