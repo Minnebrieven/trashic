@@ -104,24 +104,19 @@ class SetoranController extends Controller
             $lastInsertedLogTransaksiID = DB::table('log_transaksi')->insertGetId([
                 'rekening_id' => $request->rekening_id,
                 'setoran_id' => $lastInsertedSetoranID,
-                'status' => 'diterima',
+                'status' => 'belum diterima',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
             // akhir dari insert data kedalam log transaksi
 
-            // insert data ke rekening / tambah saldo/coin/poin
-            $rekeningNasabah->increment('saldo', $total_harga);
-            $rekeningNasabah->rekening->increment('score', $total_score);
-            $rekeningNasabah->rekening->increment('coin', $total_coin);
-            // akhir dari insert data ke rekening / tambah saldo/coin/poin
-
-            return redirect()->route('private.setoran.detail', $lastInsertedSetoranID)
+            return redirect()->route('transaksiku.show.setoran', $lastInsertedLogTransaksiID)
                 ->with('success', 'Setoran berhasil !. ID Setoran:'.$lastInsertedSetoranID);
         } catch (\Exception $e) {
             //return redirect()->back()
+            $errors = new MessageBag(['general' => 'Terjadi kesalahan saat setoran dibuat!. \n Error : '.$e->getMessage()]);
             return redirect()->back()
-                ->with('errors', 'Terjadi kesalahan saat setoran dibuat!. \n Error : '.$e->getMessage());
+                ->withErrors($errors)->withInput();
         }
     }
 

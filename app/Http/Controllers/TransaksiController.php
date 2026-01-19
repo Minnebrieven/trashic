@@ -19,7 +19,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $arrayLogTransaksi = LogTransaksi::all();
+        $arrayLogTransaksi = LogTransaksi::orderBy('created_at', 'desc')->get();
         return view('private.transaksi.index', compact('arrayLogTransaksi'));
     }
 
